@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dk.bookmark.system.dao.UserMapper">
+    <select id="listUser" resultType="com.dk.bookmark.system.domain.UserDO">
+      select `user_id`,`username`,`name`,`password`,`dept_id`,`email`,`mobile`,`status`,`user_id_create`,`gmt_create`,`gmt_modified`,`sex`,`birth`,`pic_id`,`live_address`,`hobby`,`province`,`city`,`district`
+        from sys_user
+      <where>
+          <if test="userId != null and userId != ''">AND user_id = #{userId}</if>
+          <if test="username != null and username != ''">AND username = #{username}</if>
+          <if test="name != null and name != ''">AND name = #{name}</if>
+          <if test="password != null and password != ''">AND = #{password}</if>
+          <if test="deptId != null and deptId != ''">AND = #{deptId}</if>
+          <if test="email != null and email != ''">AND = #{email}</if>
+          <if test="mobile != null and mobile != ''">AND = #{mobile}</if>
+          <if test="status != null and status != ''">AND = #{status}</if>
+          <if test="userIdCreate != null and userIdCreate != ''">AND = #{userIdCreate}</if>
+          <if test="gmtCreate != null and gmtCreate != ''">AND = #{gmtCreate}</if>
+          <if test="sex != null and sex != ''">AND = #{sex}</if>
+          <if test="birth != null and birth != ''">AND = #{birth}</if>
+          <if test="picId != null and picId != ''">AND = #{picId}</if>
+          <if test="liveAddress != null and liveAddress != ''">AND = #{liveAddress}</if>
+          <if test="hobby != null and hobby != ''">AND = #{hobby}</if>
+          <if test="province != null and province != ''">AND = #{province}</if>
+          <if test="city != null and city != ''">AND = #{city}</if>
+          <if test="district != null and district != ''">AND = #{district}</if>
+      </where>
+      <choose>
+          <when test="sort != null and sort.trim() != ''">
+              ORDER BY ${sort} ${order}
+          </when>
+          <otherwise>
+              ORDER BY user_id desc
+          </otherwise>
+      </choose>
+      <if test="offset != null and limit != null">
+          limit #{offset}, #{limit}
+      </if>
+    </select>
+</mapper>
